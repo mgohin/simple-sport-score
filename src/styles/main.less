@@ -1,0 +1,127 @@
+@import (inline) 'font-awesome.min.css';
+
+@color-ust: #E62419;
+@color-dev: #460c09;
+
+@main-color: @color-ust;
+
+@font-face {
+  font-family: 'Bitter';
+  src: url('./fonts/Bitter-Regular.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Droid Sans';
+  src: url('./fonts/Bitter-Bold.otf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Bitter";
+}
+
+body {
+  background-color: @main-color;
+  overflow: hidden;
+
+  .hide {
+    display: none;
+  }
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.right {
+  float: right;
+}
+
+.tips {
+  color: #fff;
+
+  &.arrow-tips {
+    i:first-child {
+      margin-right: 1rem;
+    }
+  }
+}
+
+.scores {
+  position: absolute;
+  margin-top: 50vh;
+  transform: translateY(-50%);
+  width: 100%;
+
+  .score-bloc {
+    display: inline-block;
+    width: 45%;
+    position: relative;
+    vertical-align: middle;
+  }
+
+  .score-separator {
+    display: inline-block;
+    width: 10%;
+    text-align: center;
+  }
+
+  .score,
+  .score-separator {
+    font-size: 20rem;
+    color: #FFF;
+    user-select: none;
+  }
+
+  .team-name {
+    input {
+      width: 100%;
+      font-size: 8rem;
+      color: #FFF;
+      background-color: transparent;
+      border: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}
+
+.button {
+  display: inline-block;
+  padding: 1rem 3rem;
+  background-color: #fff;
+  color: @main-color;
+  border-radius: 0.5rem;
+  user-select: none;
+
+  &.top-button{
+    position: absolute;
+    top: 2rem;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &.top-button.right {
+    margin-left: 0;
+    transform: none;
+    right: 2rem;
+  }
+
+  &:hover {
+    opacity: 0.8;
+    cursor: pointer;
+  }
+}
