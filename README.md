@@ -19,6 +19,7 @@ I'll keep this tool very simple.
 
 
 ### TODO
-- support themes (css files)
-- change theme
+~~- support themes (css files)~~
+~~- change theme~~
 - key-binding for scoring
+- add step setting
