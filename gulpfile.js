@@ -46,7 +46,7 @@ gulp.task('clean', [], function () {
 });
 
 gulp.task('rev', ['uglify', 'minify-css'], function () {
-    return gulp.src([buildDir + "/**/*.js", buildDir + "/**/*.css"])
+    return gulp.src([buildDir + "/**/*.js", buildDir + "/**/styles.css"])
         .pipe(filesize())
         .pipe(rev())
         .pipe(revDeleteOriginal())
@@ -81,7 +81,18 @@ gulp.task('uglify', function () {
 
 /* ~~~~~~ CSS TASKS ~~~~~~ */
 
-gulp.task('styles', [], function () {
+gulp.task('styles-themes', [], function () {
+    return gulp.src(srcDir + '/styles/themes/*.less')
+        .pipe(sourcemaps.init())
+        .pipe(less())
+        .on('error', handleError)
+        .pipe(prefix({cascade: true}))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(buildDir + '/styles/themes'))
+        .pipe(livereload());
+});
+
+gulp.task('styles', ['styles-themes'], function () {
     return gulp.src(srcDir + '/styles/main.less')
         .pipe(sourcemaps.init())
         .pipe(concat('concat.css'))
@@ -132,17 +143,27 @@ gulp.task('copy-views', [], function () {
 
 /* ~~~~~~ BUILDS ~~~~~~ */
 
-gulp.task('default', function (callback) {
-    runSequence('clean', ['revreplace', 'copy-views', 'copy-images', 'copy-favicon', 'copy-fonts'], callback);
-});
-
-gulp.task('watch', ['styles', 'copy-views', 'copy-images', 'copy-favicon', 'copy-fonts'], function () {
+gulp.task('lint-copy-js', function () {
     var fileLogger = function (file, cb) {
         return map(function (file, cb) {
             console.log(gutil.colors.cyan('lint file :'), file.path, '\n');
             cb(null, file);
         });
     };
+
+    return gulp.src(srcDir + '/**/*.js')
+        .pipe(jshint())
+        .pipe(fileLogger())
+        .pipe(jshint.reporter('jshint-stylish'))
+        .pipe(gulp.dest(buildDir))
+        .pipe(livereload());
+});
+gulp.task('default', function (callback) {
+    runSequence('clean', ['revreplace', 'copy-views', 'copy-images', 'copy-favicon', 'copy-fonts'], callback);
+});
+
+gulp.task('watch', ['lint-copy-js', 'styles', 'copy-views', 'copy-images', 'copy-favicon', 'copy-fonts'], function () {
+
 
     var lintAndCopyFile = function (file) {
         gulp.src(file.path)
@@ -155,8 +176,7 @@ gulp.task('watch', ['styles', 'copy-views', 'copy-images', 'copy-favicon', 'copy
 
     livereload.listen();
 
-    gulp.watch(srcDir + '/**/*.js').on('add', lintAndCopyFile);
-    gulp.watch(srcDir + '/**/*.js').on('change', lintAndCopyFile);
+    gulp.watch(srcDir + '/**/*.js', ['lint-copy-js']);
     gulp.watch(srcDir + '/**/*.less', ['styles']);
     gulp.watch(srcDir + '/**/*.css', ['styles']);
     gulp.watch(srcDir + '/styles/fonts/**', ['copy-fonts']);

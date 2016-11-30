@@ -8,38 +8,52 @@
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
     <meta http-equiv="pragma" content="no-cache, no-store" />
     <title>Simple Sport Score</title>
-    <link rel="stylesheet" href="styles/styles-9ee367f184.css">
+    <link rel="stylesheet" href="styles/styles-c822229f21.css">
+    <link rel="stylesheet" id="stylesheet-theme" href="styles/themes/default.css">
 </head>
 
 <body ng-controller="MainCtrl">
 
-    <div id="go-fullscreen" class="button top-button fullscreen-hide">FULLSCREEN</div>
-    <div id="reset" class="button top-button right fullscreen-hide">RESET</div>
-
     <div class="scores">
         <div class="score-bloc">
             <div id="team-a-score" class="score text-center"></div>
-            <div class="tips arrow-tips text-center fullscreen-hide" >
-                <i class="fa fa-arrow-up"></i><i class="fa fa-arrow-down"></i>
-            </div>
-            <div class="team-name">
-                <input id="team-a-name" type="text" class="text-center fullscreen-disable team-name-input">
-            </div>
+            <div id="team-a-name-display" class="team-name"></div>
         </div><!--
 
         --><div class="score-separator">-</div><!--
 
         --><div class="score-bloc">
             <div id="team-b-score" class="score text-center"></div>
-            <div class="tips arrow-tips text-center fullscreen-hide" >
-                <i class="fa fa-arrow-left"></i><i class="fa fa-arrow-right"></i>
-            </div>
-            <div class="team-name">
-                <input id="team-b-name" type="text" class="text-center fullscreen-disable team-name-input">
-            </div>
+            <div id="team-b-name-display" class="team-name"></div>
         </div>
     </div>
 
-    <script src="scripts/app-c507b67fc7.js"></script>
+    <div id="panel" class="panel left">
+        <h3>THEMES</h3>
+        <select id="themes" class="button">
+            <option value="default">Default</option>
+            <option value="badminton-ust">Badminton UST</option>
+        </select>
+        <hr/>
+        <h3>TEAM LEFT</h3>
+        <input type="text" id="team-a-name" class="team-name-input" />
+        <div class="key-binding"><kbd id="team-a-score-minus" class="rebind"><span></span></kbd> up score</div>
+        <div class="key-binding right">down score <kbd id="team-a-score-plus" class="rebind"><span></span></kbd></div>
+        <hr/>
+        <h3>TEAM RIGHT</h3>
+        <input type="text" id="team-b-name" class="team-name-input" />
+        <div class="key-binding"><kbd id="team-b-score-minus" class="rebind"><span></span></kbd> up score</div>
+        <div class="key-binding right">down score <kbd id="team-b-score-plus" class="rebind"><span></span></kbd></div>
+        <hr/>
+        <h3>FULLSCREEN</h3>
+        <div id="go-fullscreen" class="link">go to fullscreen</div>
+        <hr/>
+        <h3>RESETS</h3>
+        <div id="reset-scores" class="link">reset scores</div>
+        <div id="reset-names" class="link">reset names</div>
+        <div id="reset-bindings" class="link">reset bindings</div>
+    </div>
+
+    <script src="scripts/app-e877216393.js"></script>
 </body>
 </html>
